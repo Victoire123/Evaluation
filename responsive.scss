@@ -1,0 +1,58 @@
+$mobile-max: 767px; //valeur max pr les mobiles
+$tablet: 768px; // valeur minimum d'une tablette'
+$tablet-max: 991px; // valeur maximum d'une tablette'
+$desktop: 992px; // valeur minimum pour le grand ecran
+
+body{
+    background-color: red;
+}
+.tablet{
+    display: none;
+}
+
+/*@media (min-width: $tablet){
+    body{
+        background-color: yellow;
+    }
+    .tablet{
+        display: block;
+    }
+}*/
+
+.box{
+    display: flex;
+    flex-wrap:wrap;
+    
+    article{
+    width: 100%;
+    background: white;
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    }
+}
+@media (min-width: $tablet) AND (max-width: $tablet-max){
+    body{
+        background-color: yellow;
+    }
+    .tablet{
+        display: block;
+    }
+    .box{
+        article{
+            width: calc(50% - 10px);
+        }
+    }
+}
+
+@media (min-width: $desktop){
+    body{
+       background-color: blue; 
+    }
+     .box{
+        article{
+            width: calc(33.333% - 10px);
+        }
+    }
+}
+
