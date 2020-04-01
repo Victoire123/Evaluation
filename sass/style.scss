@@ -1,5 +1,110 @@
-body{
-    background-color: black;
+$tablet-width: 768px;
+
+$desktop-width: 992px;
+
+ 
+
+@mixin tablet {
+
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+
+    @content;
+
+  }
+
 }
+
+ 
+
+@mixin desktop {
+
+  @media (min-width: #{$desktop-width}) {
+
+    @content;
+
+  }
+
+}
+
+ 
+
+body{
+
+    @include tablet {
+
+        color:black;
+
+    }
+
+ 
+
+    @include desktop {
+
+        color: black;
+
+    }
+
+}
+
+
+body{
+    background-color: white;
+}
+
+h1{
+    text-align: center;
+   font-weight: bolder;
+   padding-bottom: 2rem;
+}
+
+#troiBlocs .container{
+    position: relative;
+    width: 1200px;
+    height: 300px;
+    margin: 240px auto;
+    
+}
+
+#troiBlocs .container .box{
+    position: relative;
+    background-color: yellow;
+    float: left;
+    margin: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+
+.resp-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+
+
+
+#loupe {
+
+    position:absolute;
+
+    right:5px;
+
+    top:-90px;
+
+    display:inline-block;
+
+    background:#eee;
+
+    border:1px solid #DD4B39;
+
+    font-size:4em;
+
+    font-weight:700;
+
+    padding:10px;
+
+}
+
 
 // https://github.com/erwantanguy/B1MDSDevFront

@@ -1,160 +1,103 @@
 $(document).ready(function(){
-    //$('h1').hide(5000);
-    //https://api.jquery.com
-    
-  for ( var i = 0; i < 5; i++ ) {
-    $( '<div class="col-1">' ).appendTo( '#effets' );
-  }
-    $('#test').click(function() {
-      $( "#effets div" ).show(2000);
-      $( "#tests div" ).show(2000);
-    });
-     $( "#effets div" ).click(function() {
-      $( this ).hide(2000, function() {
-        //$( this ).remove();
-      });
-    });
 
-    $('#box1').click(function(){
-        $(this).css('background-color','pink').hide(4000);
-    });
-    $('#box2').click(function(){
-        $(this).css('background-color','purple').fadeOut(2000);
-    });
-    $('#box3').click(function(){
-        $(this).css('background-color','blue').slideUp(4000);
-    });    
-    
-    $('#animate div').click(function(){
-        $(this).animate({
-            "left":"300px"
-        }, 3000);
-        $(this).animate({
-            "top":"-300px"
-        }, 4000).css('background-color','yellow');
-        
-//        $(this).animate({
-//            "left":"300px",
-//            "top":"-300px"
-//        }, 2000);
-        
-    });
-    
-    $('li:nth-child(4)').addClass('alerte');
-    $('#no-alerte').click(function(){
-        $('li').removeClass();
-    });
-    $('li a').click(function(){
-        $(this).parent('li').removeClass();
-    });
-    var i = $('li').length + 1;
-    console.log('i = ' + i);
-    //alert(i);
-    $('#plus').click(function(){
-        $('<li>ligne ' + i + '</li>').appendTo('ul');
-        i++;
-        if(i > 1){
-            $('#moins').show();
-        }
-        console.log(i);
-    });
-    $('#moins').click(function(){
-        if(i > 1){
-            $('li:last').remove();
-            i--;
-            if(i == 1){
-                $(this).hide();
-            }
-        }
-        console.log(i);
-    });
-    
-    //TOGGLE EFFECTS
-    $('#theToggle').click(function(){
-        //$('#maBoite').toggle(2000);
-        $('#maBoite').toggleClass('bordure');
-    });
-    $('#toggle p').click(function(){
-        $(this).toggleClass('highlight');
-//        var index = $(this).index();
-//        console.log(index);
-    });
-    $('#toggle p').hover(function(){
-        $('#maBoite').toggleClass('vert');
-    });
-    
-    //Agrandir ou diminuer la taille de la police
-    $('button.taille').click(function(){
-        var os = $('#toggle p').css('font-size');
-        var number = parseFloat(os);
-        var uom = os.slice(-2);
-        if(this.id=='pluspetit'){
-            number /= 1.4;
-        } else{
-            number *= 1.4;
-        }
-        console.log(number);
-        $('#toggle p').css('font-size', number + uom);
-    });
-    
-    //Photos
-    
-    $('#photos nav li').click(function(){
-        var numeroLigne = $(this).index();
-        console.log(numeroLigne);
-        $('#photos div img').hide();
-        $('#photos div img').eq(numeroLigne).show(2000);
-    });
-    
-    
-//    console.log(os + number + uom);
-//    var index = $('#toggle p').eq();
-//    console.log(index);
+// POUR CLIQUER SUR UNE VIGNETTE ET CA AFFICHE SON IMAGE
+$('#videos nav li').click(function(){
+    var numeroLigne = $(this).index();
+    console.log(numeroLigne);
+    $('#video div iframe').hide(2000);
+    $('#videos div iframe').eq(numeroLigne).show(2000);
+  });
+  
+  
+  
+ // récupérer la valeur width et la mettre aussi dans height
 
-//    console.log($('h1').attr('class'));
+ $('#troiBlocs.container').height($('#troiBlocs.container').width());
+  
 
-    $('.annuaire article[data-sexe=h]').children('img').attr('src','image/homme-150.jpg');
-    $('.annuaire article[data-sexe=f]').children('img').attr('src','image/femme-150.jpg');
-    
-//si on click sur une option, on fait apparaitre les differentes propositions
-    
-   
-    
-    $('.annuaire li').click(function(){
-        var alpha = $(this).html();
-        console.log(alpha);
-        
-    if(alpha != 'Tous'){
-        $('.annuaire article').hide();
-        $('.annuaire article[data-name='+alpha+']').show();
-     }else{
-        $('.annuaire article').show();
-        }
-        if(!$('.annuaire article').is(':visible')){
-            $('<p class="notlist">Personne ne correspond au critère sélectionné</p>').appendTo('#liste > div');
-        }
-    });
+ //pour ajouter un element on utilise append ou appendto. on crée une variable ds laquelle on met la div
+ var $loupe = $('<div id = "loupe"></div>').appendTo('#tableau').css("display", "none");
+                        
+ //cibler nos td et mettre le hover
+ $('td').hover(
+         function(){//une fonction au moment du survole et une deuxieme fonction pour après le survole
+            //pour faire apparaitre la loupe on crée une variable ds lakel on met le text
+            $loupe.css("display", "block");
+            var $text = $(this).text();
+            //console.log($text);
+            $loupe.text($text);
+         },
+         function(){
+         $loupe.css("display","none");
+         }
+                 );
 
-    $('select').on('change', function(){
-        //alerte(this.value)
-        var cat = this.value;
-        console.log(cat);
-    });
-            
-            $('.annuaire option').click(function(){
-        var cat = $(this).children('option').attr('value');
-        console.log(cat); //là j'affiche le contenu de ma variable cat
-        if(cat != 'all'){
-            $('.annuaire article').hide();
-            $('annuaire article[data-cat~='+cat+']').show();
-        }else{
-            $('.annuaire article').show();
-            $('p.nolist').hide();
-        }
-    });
 
+
+// Variables contenant l'ensemble des liens du menu par onglet :
+var $ongletItems = $(".menu button") ;
+		
+// Fonction d�clench�es quand on clique sur l'un de ces items
+$ongletItems.click(function(){
+    
+    // On enl�ve la classe sur tous les items
+    $ongletItems.removeClass("active") ;
+    
+    // On met la classe active sur l'item qui a été cliqué
+    $(this).addClass("active") ;
+    
+    // Annule l'action par d�faut
+    return false ;
+    
 });
-   
+
+        
+       //Quand on clique sur un onglet, le tableau lié apparait.
+//Le cas échéant, les autres tableaux disparaissent.
+        
+        //je stock d'abord les tableaux et je les cache en css (display none).pour ça je crée une variable ds laquelle je mets les tableaux
+          var tableau = $('table').css('display', 'none');
+          var vignettes = $('box').css('display', 'none');
+          var videos = $('#box').css('display', 'none');
+
+$('.menu button').click(function(){
+    //Cache 
+    $('table').css('display', 'none');
+    $('box').css('display', 'none');
+    $('#videos').css('display', 'none');
+    //récupérer le selecteur
+    var attr_href = $(this).attr('href');
+    
+    //clic sur le selecteur pour montrer ton tableau
+    tableau.filter(attr_href).css('display', 'block');
+    vignettes.filter(attr_href).css('display', 'block');
+    videos.filter(attr_href).css('display', 'block');
+});
+       
+       
+  $tables = $("table").css("display", "none");
+  $vignettes = $('box').css('display', 'none');
+  $videos = $('#box').css('display', 'none');
+
+  console.log(tables); //permet de savoir si ça fonctionne ou pas. permet de voir ce qu'il y a dans la variable      
+      
+  $ongletItems.click(function(){ //l'onglet
+     var $clique = $(this);
+     console.log($clique);
+     $("table").css("display", "none"); //on cache les autres
+     selecteur = $clique.attr("href");//pour ensuite mettre le lien selon l'onglet cliqué
+     console.log(selecteur);
+     $tables.filter(selecteur).css("display","block");//affiche l'element
+     $vignettes.filter(selecteur).css("display","block");
+     $videos.filter(selecteur).css("display","block");
+     return false; //annule l'action par defaut.
+     });
+        //afficher par defaut un tableau
+       
+
+  });
+
+
 
 
 
